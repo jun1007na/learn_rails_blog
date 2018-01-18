@@ -22,10 +22,12 @@ class ArticlesController < ApplicationController
   end
   
   def new
+#    データベースに新規記事を作成
     @article = Article.new
   end
   
   def edit
+#    取り出したい記事をデータベースから探す
     @article = Article.find(params[:id])
   end
   
@@ -34,6 +36,17 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
   
+  def update
+#    取り出したい記事をデータベースから探す
+    @article = Article.find(params[:id])
+#    記事更新
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
+
 #  strong_parameters設定のためのメソッド
   private
     def article_params
