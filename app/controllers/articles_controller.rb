@@ -19,6 +19,11 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
   
+  def index
+#    記事一覧をデータベースから取得
+    @articles = Article.all
+  end
+  
 #  strong_parameters設定のためのメソッド
   private
     def article_params
