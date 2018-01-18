@@ -47,6 +47,15 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+#    取り出したい記事をデータベースから探す
+    @article = Article.find(params[:id])
+#    削除
+    @article.destroy
+#    indexにリダイレクト
+    redirect_to articles_path
+  end
+  
 #  strong_parameters設定のためのメソッド
   private
     def article_params
