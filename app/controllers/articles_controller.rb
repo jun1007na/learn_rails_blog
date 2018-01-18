@@ -1,7 +1,8 @@
 class ArticlesController < ApplicationController
   
-  def new
-    @article = Article.new
+  def index
+#    記事一覧をデータベースから取得
+    @articles = Article.all
   end
   
   def create
@@ -20,14 +21,17 @@ class ArticlesController < ApplicationController
 #    render plain: params[:article].inspect
   end
   
-  def show
-#    取り出したい記事をデータベースから探す
+  def new
+    @article = Article.new
+  end
+  
+  def edit
     @article = Article.find(params[:id])
   end
   
-  def index
-#    記事一覧をデータベースから取得
-    @articles = Article.all
+  def show
+#    取り出したい記事をデータベースから探す
+    @article = Article.find(params[:id])
   end
   
 #  strong_parameters設定のためのメソッド
