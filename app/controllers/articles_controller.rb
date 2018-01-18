@@ -1,15 +1,21 @@
 class ArticlesController < ApplicationController
   
   def new
-    
+    @article = Article.new
   end
   
   def create
 #    記事をデータベースに保存
     @article = Article.new(article_params)
-    @article.save
+    
+#    articleモデルのバリデーションに引っかかる時の処理
+    if @article.save
 #    ユーザーをshowアクションにリダイレクト
-    redirect_to @article
+      redirect_to @article
+    else
+#      ビューのnewテンプレートが描画されたときに、@articleオブジェクトがビューのnewテンプレートに返されるようにする
+      render 'new'
+    end
     
 #    render plain: params[:article].inspect
   end
