@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 #  RESTリソースへの標準的なルーティング
-  resources :articles
+#  articleの内側にネストされたリソースとしてcommentsが作成される
+  resources :articles do
+    resources :comments
+  end
+
 #  root
   root 'welcome#index'
 
