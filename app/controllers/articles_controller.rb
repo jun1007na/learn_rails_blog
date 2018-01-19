@@ -41,6 +41,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
 #    記事更新
     if @article.update(article_params)
+#      モデルを保持する@articleはshowアクションへリダイレクトする
       redirect_to @article
     else
       render 'edit'
