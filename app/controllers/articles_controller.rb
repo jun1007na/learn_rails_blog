@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  protect_from_forgery with: :exception
+  before_action :basic, except: [:index, :show]
   
   def index
 #    記事一覧をデータベースから取得
@@ -61,6 +63,14 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :text)
+    end
+  
+    def basic
+      name = 'user'
+      passwd = Rails.application.secrets.basic_pass
+      authenticate_or_request_with_http_basic('BA') do |n, p|
+        n == name && Digest::SHA1.hexdigest(p) == passwd
+      end
     end
     
 end

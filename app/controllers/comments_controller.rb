@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  protect_from_forgery with: :exception
+  before_action :basic, only: :destroy
+  
   def create
 #    記事(のオブジェクト)を取得して@articleに保存
     @article = Article.find(params[:article_id])
@@ -18,5 +21,13 @@ class CommentsController < ApplicationController
   private
     def comment_params
       params.require(:comment).permit(:commenter, :body)
+    end
+  
+    def basic
+      name = 'user'
+      passwd = Rails.application.secrets.basic_pass
+      authenticate_or_request_with_http_basic('BA') do |n, p|
+        n == name && Digest::SHA1.hexdigest(p) == passwd
+      end
     end
 end
